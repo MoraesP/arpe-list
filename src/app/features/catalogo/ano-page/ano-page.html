@@ -1,0 +1,34 @@
+<div class="ano-page">
+  <header class="ano-page__header">
+    <a class="ano-page__back" routerLink="/" aria-label="Voltar para a Home">
+      <app-icon name="chevron-left" />
+    </a>
+    <div>
+      <p class="ano-page__kicker">{{ ano()?.numero }}</p>
+      <h1 class="ano-page__title">Lotes do ano</h1>
+    </div>
+  </header>
+
+  @if (lotes().length) {
+    <ul class="ano-page__list">
+      @for (item of lotes(); track item.lote.id) {
+        <li>
+          <a class="ano-page__link" [routerLink]="['/anos', anoId(), 'lotes', item.lote.id]">
+            <span class="ano-page__cover">
+              <app-icon name="photo" [size]="22" />
+            </span>
+            <span class="ano-page__info">
+              <span class="ano-page__info-title">Lote {{ item.lote.letra }}</span>
+              <span class="ano-page__info-meta">
+                {{ item.totalCarrinhos }} {{ item.totalCarrinhos === 1 ? 'carrinho' : 'carrinhos' }}
+              </span>
+            </span>
+            <app-icon name="chevron-right" class="ano-page__chevron" />
+          </a>
+        </li>
+      }
+    </ul>
+  } @else {
+    <app-empty-state mensagem="Nenhum lote cadastrado neste ano ainda." />
+  }
+</div>

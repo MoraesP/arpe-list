@@ -1,0 +1,22 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  background: rgba(122, 127, 132, 0.3);
+  color: var(--hw-text);
+
+  &--notable {
+    background: var(--hw-accent);
+    color: var(--hw-bg);
+  }
+}
+
+.badge__icon {
+  display: inline-flex;
+}

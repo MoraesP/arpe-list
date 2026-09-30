@@ -1,0 +1,96 @@
+@use 'mixins' as *;
+
+.lote-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.lote-page__header {
+  padding: 28px 20px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lote-page__back {
+  @include link-reset;
+  @include focus-ring;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-left: -8px;
+  border-radius: var(--hw-radius-sm);
+}
+
+.lote-page__kicker {
+  @include kicker;
+  margin: 0;
+}
+
+.lote-page__title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.lote-page__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  padding: 4px 16px 24px;
+
+  @media (min-width: 481px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @media (min-width: 900px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+.lote-page__thumb {
+  @include focus-ring;
+  position: relative;
+  height: 180px;
+  border-radius: 10px;
+  border: none;
+  padding: 0;
+  background: linear-gradient(160deg, var(--hw-surface), var(--hw-bg));
+  color: var(--hw-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: var(--hw-accent);
+  }
+}
+
+.lote-page__badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(122, 127, 132, 0.35);
+  color: var(--hw-text);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+
+  &--super {
+    background: var(--hw-accent);
+    color: var(--hw-bg);
+  }
+}

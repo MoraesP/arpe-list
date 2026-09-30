@@ -1,0 +1,28 @@
+<div class="home">
+  <header class="home__header">
+    <p class="home__kicker">Coleção</p>
+    <h1 class="home__title">Catálogo Hot Wheels</h1>
+    <p class="home__subtitle">Escolha um ano para ver os lotes</p>
+  </header>
+
+  @if (anos().length) {
+    <ul class="home__list">
+      @for (item of anos(); track item.ano.id) {
+        <li>
+          <a class="home__link" [routerLink]="['/anos', item.ano.id]">
+            <span class="home__year">{{ item.ano.numero }}</span>
+            <span class="home__info">
+              <span class="home__info-title">Ano {{ item.ano.numero }}</span>
+              <span class="home__info-meta">
+                {{ item.totalLotes }} {{ item.totalLotes === 1 ? 'lote cadastrado' : 'lotes cadastrados' }}
+              </span>
+            </span>
+            <app-icon name="chevron-right" class="home__chevron" />
+          </a>
+        </li>
+      }
+    </ul>
+  } @else {
+    <app-empty-state mensagem="Nenhum ano cadastrado ainda." />
+  }
+</div>

@@ -1,0 +1,89 @@
+@use 'mixins' as *;
+
+.lote-form {
+  max-width: 420px;
+}
+
+.lote-form__title {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.lote-form__subtitle {
+  font-size: 14px;
+  color: var(--hw-text-secondary);
+  margin: 8px 0 32px;
+}
+
+.lote-form__form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.lote-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lote-form__label {
+  font-size: 11.5px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--hw-text-secondary);
+}
+
+.lote-form__input {
+  @include focus-ring;
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--hw-bg);
+  border: 1.5px solid rgba(122, 127, 132, 0.5);
+  border-radius: 10px;
+  padding: 13px 16px;
+  font-size: 15px;
+  color: var(--hw-text);
+  font-family: var(--hw-font-body);
+
+  &::placeholder {
+    color: var(--hw-text-secondary);
+  }
+}
+
+.lote-form__error {
+  font-size: 12.5px;
+  color: var(--hw-accent);
+  margin: 0;
+}
+
+.lote-form__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.lote-form__success {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--hw-accent);
+}
+
+.lote-form__submit {
+  @include focus-ring;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 10px;
+  border: none;
+  background: var(--hw-accent);
+  color: var(--hw-bg);
+  font-size: 14px;
+  font-weight: 700;
+}

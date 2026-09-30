@@ -1,0 +1,31 @@
+<div class="ano-form">
+  <h1 class="ano-form__title">Novo ano</h1>
+  <p class="ano-form__subtitle">Anos podem ser cadastrados livremente, sem limite de quantidade.</p>
+
+  <form class="ano-form__form" (ngSubmit)="salvar()">
+    <label class="ano-form__label" for="ano-numero">Ano</label>
+    <input
+      id="ano-numero"
+      class="ano-form__input"
+      type="number"
+      placeholder="Ex.: 2027"
+      [formControl]="numero"
+    />
+    @if (numero.invalid && numero.touched) {
+      <p class="ano-form__error">Informe um ano válido.</p>
+    }
+
+    <div class="ano-form__actions">
+      @if (salvo()) {
+        <span class="ano-form__success">
+          <app-icon name="check" [size]="16" />
+          Ano cadastrado
+        </span>
+      }
+      <button type="submit" class="ano-form__submit">
+        <app-icon name="plus" [size]="16" />
+        Salvar ano
+      </button>
+    </div>
+  </form>
+</div>

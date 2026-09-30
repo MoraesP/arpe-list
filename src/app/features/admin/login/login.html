@@ -1,0 +1,42 @@
+<div class="login">
+  <form class="login__card" [formGroup]="form" (ngSubmit)="entrar()">
+    <p class="login__kicker">Hot Wheels</p>
+    <h1 class="login__title">Painel Admin</h1>
+
+    <div class="login__field">
+      <label class="login__label" for="login-email">Email</label>
+      <input
+        id="login-email"
+        class="login__input"
+        type="email"
+        autocomplete="username"
+        formControlName="email"
+      />
+      @if (form.controls.email.invalid && form.controls.email.touched) {
+        <p class="login__error">Informe um email válido.</p>
+      }
+    </div>
+
+    <div class="login__field">
+      <label class="login__label" for="login-senha">Senha</label>
+      <input
+        id="login-senha"
+        class="login__input"
+        type="password"
+        autocomplete="current-password"
+        formControlName="senha"
+      />
+      @if (form.controls.senha.invalid && form.controls.senha.touched) {
+        <p class="login__error">Informe a senha.</p>
+      }
+    </div>
+
+    @if (erro()) {
+      <p class="login__error login__error--form" role="alert">{{ erro() }}</p>
+    }
+
+    <button type="submit" class="login__submit" [disabled]="enviando()">
+      {{ enviando() ? 'Entrando…' : 'Entrar' }}
+    </button>
+  </form>
+</div>

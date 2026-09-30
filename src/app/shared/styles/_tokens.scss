@@ -1,0 +1,18 @@
+// Paleta e tipografia do produto (ver docs/PRD.md § UI/UX).
+// Exposta como custom properties para poder ser lida de qualquer
+// folha de estilo (global ou por componente) só com var(--hw-...).
+:root {
+  --hw-bg: #123b4a;
+  --hw-surface: #2c6e8f;
+  --hw-accent: #7ec7d3;
+  --hw-text: #d7e6e8;
+  --hw-text-secondary: rgba(215, 230, 232, 0.62);
+  --hw-muted: #7a7f84;
+
+  --hw-font-display: 'Space Grotesk', sans-serif;
+  --hw-font-body: 'Manrope', sans-serif;
+
+  --hw-radius-sm: 8px;
+  --hw-radius-md: 12px;
+  --hw-radius-lg: 20px;
+}

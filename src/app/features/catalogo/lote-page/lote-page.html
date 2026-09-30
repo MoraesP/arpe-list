@@ -1,0 +1,40 @@
+<div class="lote-page">
+  <header class="lote-page__header">
+    <a class="lote-page__back" [routerLink]="['/anos', anoId()]" aria-label="Voltar para o ano">
+      <app-icon name="chevron-left" />
+    </a>
+    <div>
+      <p class="lote-page__kicker">{{ anoId() }}</p>
+      <h1 class="lote-page__title">Lote {{ lote()?.letra }}</h1>
+    </div>
+  </header>
+
+  @if (carrinhos().length) {
+    <div class="lote-page__grid">
+      @for (carrinho of carrinhos(); track carrinho.id) {
+        <button type="button" class="lote-page__thumb" (click)="abrirCarrinho(carrinho.id)">
+          @if (carrinho.raridade !== 'normal') {
+            <span
+              class="lote-page__badge"
+              [class.lote-page__badge--super]="carrinho.raridade === 'super-t-hunt'"
+            >
+              @if (carrinho.raridade === 'super-t-hunt') {
+                <app-icon name="star" [size]="10" />
+                Super T-Hunt
+              } @else {
+                T-Hunt
+              }
+            </span>
+          }
+          <app-icon name="photo" [size]="34" />
+        </button>
+      }
+    </div>
+  } @else {
+    <app-empty-state mensagem="Nenhum carrinho cadastrado neste lote ainda." />
+  }
+
+  @if (carrinhoSelecionado(); as carrinho) {
+    <app-carrinho-modal [carrinho]="carrinho" (fechar)="fecharModal()" />
+  }
+</div>

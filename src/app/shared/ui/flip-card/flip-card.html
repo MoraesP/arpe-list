@@ -1,0 +1,10 @@
+<div class="flip-card">
+  <div class="flip-card__inner" [class.flip-card__inner--flipped]="flipped()">
+    <div class="flip-card__face flip-card__face--front" [inert]="flipped()">
+      <ng-content select="[front]" />
+    </div>
+    <div class="flip-card__face flip-card__face--back" [inert]="!flipped()">
+      <ng-content select="[back]" />
+    </div>
+  </div>
+</div>

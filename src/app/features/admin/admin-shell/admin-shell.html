@@ -1,0 +1,41 @@
+<div class="admin-shell">
+  <aside class="admin-shell__sidebar">
+    <div class="admin-shell__brand">
+      <p class="admin-shell__kicker">Hot Wheels</p>
+      <h1 class="admin-shell__title">Painel Admin</h1>
+    </div>
+
+    <nav class="admin-shell__nav">
+      <a
+        class="admin-shell__nav-item"
+        routerLink="anos/novo"
+        routerLinkActive="admin-shell__nav-item--active"
+      >
+        <app-icon name="calendar" />
+        Anos
+      </a>
+      <a
+        class="admin-shell__nav-item"
+        routerLink="lotes/novo"
+        routerLinkActive="admin-shell__nav-item--active"
+      >
+        <app-icon name="grid" />
+        Lotes
+      </a>
+      <a
+        class="admin-shell__nav-item"
+        routerLink="carrinhos/novo"
+        routerLinkActive="admin-shell__nav-item--active"
+      >
+        <app-icon name="photo" />
+        Carrinhos
+      </a>
+    </nav>
+
+    <button type="button" class="admin-shell__logout" (click)="sair()">Sair</button>
+  </aside>
+
+  <main class="admin-shell__content">
+    <router-outlet />
+  </main>
+</div>

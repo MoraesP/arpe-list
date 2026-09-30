@@ -1,0 +1,203 @@
+<div class="carrinho-form">
+  <h1 class="carrinho-form__title">Novo carrinho</h1>
+  <p class="carrinho-form__subtitle">Escolha o ano e o lote para cadastrar o carrinho.</p>
+
+  <form class="carrinho-form__form" (ngSubmit)="salvar()">
+    <div class="carrinho-form__row">
+      <div class="carrinho-form__field">
+        <label class="carrinho-form__label" for="carrinho-ano">Ano</label>
+        <select
+          id="carrinho-ano"
+          class="carrinho-form__input"
+          [ngModel]="anoId()"
+          name="ano"
+          (ngModelChange)="selecionarAno($event)"
+        >
+          <option [ngValue]="null" disabled>Selecione um ano</option>
+          @for (ano of anos(); track ano.id) {
+            <option [ngValue]="ano.id">{{ ano.numero }}</option>
+          }
+        </select>
+        @if (erros().ano) {
+          <p class="carrinho-form__error">{{ erros().ano }}</p>
+        }
+      </div>
+
+      <div class="carrinho-form__field">
+        <label class="carrinho-form__label" for="carrinho-lote">Lote</label>
+        <select
+          id="carrinho-lote"
+          class="carrinho-form__input"
+          [ngModel]="loteId()"
+          name="lote"
+          (ngModelChange)="loteId.set($event)"
+          [disabled]="!anoId()"
+        >
+          <option [ngValue]="null" disabled>Selecione um lote</option>
+          @for (lote of lotes(); track lote.id) {
+            <option [ngValue]="lote.id">Lote {{ lote.letra }}</option>
+          }
+        </select>
+        @if (erros().lote) {
+          <p class="carrinho-form__error">{{ erros().lote }}</p>
+        }
+      </div>
+    </div>
+
+    <div class="carrinho-form__field">
+      <label class="carrinho-form__label" for="foto-principal">Foto principal</label>
+      <input
+        id="foto-principal"
+        type="file"
+        accept="image/*"
+        class="carrinho-form__file-input"
+        (change)="onFotoPrincipal($event)"
+      />
+      <label for="foto-principal" class="carrinho-form__dropzone">
+        <app-icon name="upload" [size]="26" />
+        {{ fotoPrincipal()?.name ?? 'Selecionar foto do carrinho' }}
+      </label>
+      @if (erros().fotoPrincipal) {
+        <p class="carrinho-form__error">{{ erros().fotoPrincipal }}</p>
+      }
+    </div>
+
+    <div class="carrinho-form__row">
+      <div class="carrinho-form__field">
+        <label class="carrinho-form__label" for="carrinho-nome">Nome</label>
+        <input
+          id="carrinho-nome"
+          class="carrinho-form__input"
+          type="text"
+          placeholder="Ex.: Bounty Hunter"
+          [ngModel]="nome()"
+          name="nome"
+          (ngModelChange)="nome.set($event)"
+        />
+        @if (erros().nome) {
+          <p class="carrinho-form__error">{{ erros().nome }}</p>
+        }
+      </div>
+      <div class="carrinho-form__field">
+        <label class="carrinho-form__label" for="carrinho-numero">Número</label>
+        <input
+          id="carrinho-numero"
+          class="carrinho-form__input"
+          type="text"
+          placeholder="Ex.: 3/10"
+          [ngModel]="numero()"
+          name="numero"
+          (ngModelChange)="numero.set($event)"
+        />
+        @if (erros().numero) {
+          <p class="carrinho-form__error">{{ erros().numero }}</p>
+        }
+      </div>
+    </div>
+
+    <div class="carrinho-form__field carrinho-form__field--relative">
+      <label class="carrinho-form__label" for="carrinho-colecao">Coleção</label>
+      <input
+        id="carrinho-colecao"
+        class="carrinho-form__input"
+        type="text"
+        autocomplete="off"
+        placeholder="Buscar ou criar coleção"
+        [ngModel]="colecaoQuery()"
+        name="colecao"
+        (ngModelChange)="onColecaoInput($event)"
+        (focus)="showSugestoes.set(true)"
+      />
+      @if (showSugestoes() && sugestoesColecao().length) {
+        <div class="carrinho-form__suggestions">
+          @for (colecao of sugestoesColecao(); track colecao.id) {
+            <button type="button" class="carrinho-form__suggestion" (click)="selecionarColecao(colecao)">
+              {{ colecao.nome }}
+            </button>
+          }
+        </div>
+      }
+      @if (erros().colecao) {
+        <p class="carrinho-form__error">{{ erros().colecao }}</p>
+      }
+    </div>
+
+    <div class="carrinho-form__field">
+      <label class="carrinho-form__label">Raridade</label>
+      <div class="carrinho-form__pills">
+        <button
+          type="button"
+          class="carrinho-form__pill"
+          [class.carrinho-form__pill--active]="raridade() === 'normal'"
+          (click)="setRaridade('normal')"
+        >
+          Normal
+        </button>
+        <button
+          type="button"
+          class="carrinho-form__pill"
+          [class.carrinho-form__pill--active]="raridade() === 't-hunt'"
+          (click)="setRaridade('t-hunt')"
+        >
+          T-Hunt
+        </button>
+        <button
+          type="button"
+          class="carrinho-form__pill"
+          [class.carrinho-form__pill--active]="raridade() === 'super-t-hunt'"
+          (click)="setRaridade('super-t-hunt')"
+        >
+          Super T-Hunt
+        </button>
+      </div>
+    </div>
+
+    @if (isSuper()) {
+      <div class="carrinho-form__field">
+        <label class="carrinho-form__label carrinho-form__label--accent" for="foto-super">
+          Foto da variação Super
+        </label>
+        <input
+          id="foto-super"
+          type="file"
+          accept="image/*"
+          class="carrinho-form__file-input"
+          (change)="onFotoVariacaoSuper($event)"
+        />
+        <label for="foto-super" class="carrinho-form__dropzone carrinho-form__dropzone--accent">
+          <app-icon name="upload" [size]="24" />
+          {{ fotoVariacaoSuper()?.name ?? 'Selecionar foto da variação' }}
+        </label>
+        @if (erros().fotoVariacaoSuper) {
+          <p class="carrinho-form__error">{{ erros().fotoVariacaoSuper }}</p>
+        }
+      </div>
+    }
+
+    <div class="carrinho-form__field">
+      <label class="carrinho-form__label" for="carrinho-observacao">Observação</label>
+      <textarea
+        id="carrinho-observacao"
+        class="carrinho-form__input carrinho-form__textarea"
+        rows="3"
+        placeholder="Detalhes adicionais (opcional)"
+        [ngModel]="observacao()"
+        name="observacao"
+        (ngModelChange)="observacao.set($event)"
+      ></textarea>
+    </div>
+
+    <div class="carrinho-form__actions">
+      @if (salvo()) {
+        <span class="carrinho-form__success">
+          <app-icon name="check" [size]="16" />
+          Carrinho cadastrado
+        </span>
+      }
+      <button type="submit" class="carrinho-form__submit">
+        <app-icon name="check" [size]="16" />
+        Salvar carrinho
+      </button>
+    </div>
+  </form>
+</div>

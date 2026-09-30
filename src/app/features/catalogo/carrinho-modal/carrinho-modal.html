@@ -1,0 +1,82 @@
+<div class="carrinho-modal">
+  <div class="carrinho-modal__card">
+    <header class="carrinho-modal__header">
+      <app-badge-raridade [raridade]="carrinho().raridade" />
+      <button
+        type="button"
+        class="carrinho-modal__close"
+        (click)="fechar.emit()"
+        aria-label="Fechar"
+      >
+        <app-icon name="close" />
+      </button>
+    </header>
+
+    <div class="carrinho-modal__flip">
+      <app-flip-card [flipped]="flipped()" class="carrinho-modal__flip-card">
+        <div front class="carrinho-modal__front">
+          <div class="carrinho-modal__photo">
+            @if (showSuper()) {
+              <span class="carrinho-modal__super-tag">
+                <app-icon name="star" [size]="10" />
+                Variação Super
+              </span>
+            }
+            <app-icon name="photo" [size]="64" class="carrinho-modal__photo-placeholder" />
+          </div>
+          <div class="carrinho-modal__meta">
+            <p class="carrinho-modal__nome">{{ carrinho().nome }}</p>
+            <p class="carrinho-modal__submeta">{{ colecao()?.nome }} · {{ carrinho().numero }}</p>
+          </div>
+        </div>
+
+        <div back class="carrinho-modal__back">
+          <p class="carrinho-modal__kicker">Detalhes</p>
+          <p class="carrinho-modal__nome carrinho-modal__nome--back">{{ carrinho().nome }}</p>
+          <div class="carrinho-modal__fields">
+            <div class="carrinho-modal__field">
+              <p class="carrinho-modal__field-label">Coleção</p>
+              <p class="carrinho-modal__field-value">{{ colecao()?.nome }}</p>
+            </div>
+            <div class="carrinho-modal__field">
+              <p class="carrinho-modal__field-label">Número</p>
+              <p class="carrinho-modal__field-value">{{ carrinho().numero }}</p>
+            </div>
+          </div>
+          <div class="carrinho-modal__field">
+            <p class="carrinho-modal__field-label">Raridade</p>
+            <app-badge-raridade [raridade]="carrinho().raridade" />
+          </div>
+          @if (carrinho().observacao) {
+            <div class="carrinho-modal__field">
+              <p class="carrinho-modal__field-label">Observação</p>
+              <p class="carrinho-modal__observacao">{{ carrinho().observacao }}</p>
+            </div>
+          }
+        </div>
+      </app-flip-card>
+    </div>
+
+    <div class="carrinho-modal__actions">
+      <button type="button" class="carrinho-modal__action" (click)="compartilhar()">
+        <app-icon name="share" />
+        Compartilhar
+      </button>
+      <button type="button" class="carrinho-modal__action" (click)="girar()">
+        <app-icon name="rotate" />
+        Girar
+      </button>
+      @if (isSuperRaridade()) {
+        <button
+          type="button"
+          class="carrinho-modal__action"
+          [class.carrinho-modal__action--active]="showSuper()"
+          (click)="alternarSuper()"
+        >
+          <app-icon name="star" />
+          Super
+        </button>
+      }
+    </div>
+  </div>
+</div>

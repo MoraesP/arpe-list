@@ -1,0 +1,44 @@
+<div class="lote-form">
+  <h1 class="lote-form__title">Novo lote</h1>
+  <p class="lote-form__subtitle">Lotes podem ser cadastrados livremente, sem limite de quantidade.</p>
+
+  <form class="lote-form__form" (ngSubmit)="salvar()">
+    <div class="lote-form__field">
+      <label class="lote-form__label" for="lote-ano">Ano</label>
+      <select id="lote-ano" class="lote-form__input" [formControl]="anoId">
+        <option [value]="null" disabled>Selecione um ano</option>
+        @for (ano of anos(); track ano.id) {
+          <option [value]="ano.id">{{ ano.numero }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="lote-form__field">
+      <label class="lote-form__label" for="lote-letra">Letra do lote</label>
+      <input
+        id="lote-letra"
+        class="lote-form__input"
+        type="text"
+        maxlength="1"
+        placeholder="Ex.: G"
+        [formControl]="letra"
+      />
+      @if (letra.invalid && letra.touched) {
+        <p class="lote-form__error">Informe uma única letra (A–Z).</p>
+      }
+    </div>
+
+    <div class="lote-form__actions">
+      @if (salvo()) {
+        <span class="lote-form__success">
+          <app-icon name="check" [size]="16" />
+          Lote cadastrado
+        </span>
+      }
+      <button type="submit" class="lote-form__submit">
+        <app-icon name="plus" [size]="16" />
+        Salvar lote
+      </button>
+    </div>
+  </form>
+</div>
